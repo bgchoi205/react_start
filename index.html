@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div id="root"></div>
+    <div id="again"></div>
+  </body>
+
+  <!-- React -->
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+
+  <!-- ReactDOM : React element를 HTML로 바꾸는 역할 -->
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+
+  <!-- JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    let counter = 0;
+
+    function countUp() {
+      counter = counter + 1;
+      render();
+    }
+
+    function render() {
+      ReactDOM.render(<Container />, root);
+    }
+
+    // 일반 html 태그는 첫글자를 소문자로, JSX로 생성한 요소들은 첫글자를 대문자로 써줘야 한다.
+    const Container = () => (
+      <div>
+        <h3>Total clicks : {counter}</h3>
+        <button onClick={countUp}>Click me</button>
+      </div>
+    );
+
+    render();
+
+    // const btn = React.createElement(
+    //   "button",
+    //   {
+    //     onClick: () => console.log("clicked!!"),
+    //   },
+    //   "click me!"
+    // );
+
+    // const agian = document.getElementById("agian");
+    // const btn2 = React.createElement(
+    //   "button",
+    //   {
+    //     onClick: () => console.log("again click!!"),
+    //   },
+    //   "BTN"
+    // );
+
+    // const title = React.createElement(
+    //   "h2",
+    //   {
+    //     onMouseEnter: () => console.log("onmouse!!"),
+    //   },
+    //   "Title"
+    // );
+
+    // ReactDOM.render([title, btn2], again);
+  </script>
+</html>
