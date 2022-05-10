@@ -16,26 +16,48 @@
 
   <script type="text/babel">
     const root = document.getElementById("root");
-    let counter = 0;
-
-    function countUp() {
-      counter = counter + 1;
-      render();
+    function App() {
+      const [counter, setCounter] = React.useState(88);
+      const onClick = () => {
+        // setCounter(counter + 1);
+        setCounter((now) => now + 1);
+      };
+      return (
+        <div>
+          <h3>Total clicks : {counter}</h3>
+          <button onClick={onClick}>click me</button>
+        </div>
+      );
     }
 
-    function render() {
-      ReactDOM.render(<Container />, root);
+    function App2() {
+      const [counter2, setCounter2] = React.useState(0);
+      const onClick2 = () => {
+        setCounter2(counter2 + 1);
+      };
+      return (
+        <div>
+          <h2>test clicks : {counter2}</h2>
+          <button onClick={onClick2}>click again</button>
+        </div>
+      );
     }
+
+    // function countUp() {
+    //   counter = counter + 1;
+    //   render();
+    // }
+
+    ReactDOM.render(<App />, root);
+    ReactDOM.render(<App2 />, again);
 
     // 일반 html 태그는 첫글자를 소문자로, JSX로 생성한 요소들은 첫글자를 대문자로 써줘야 한다.
-    const Container = () => (
-      <div>
-        <h3>Total clicks : {counter}</h3>
-        <button onClick={countUp}>Click me</button>
-      </div>
-    );
-
-    render();
+    // const Container = () => (
+    //   <div>
+    //     <h3>Total clicks : {counter}</h3>
+    //     <button onClick={countUp}>Click me</button>
+    //   </div>
+    // );
 
     // const btn = React.createElement(
     //   "button",
