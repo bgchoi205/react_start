@@ -2,14 +2,13 @@
 <html lang="en">
   <body>
     <div id="root"></div>
-    <div id="again"></div>
   </body>
 
   <!-- React -->
-  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
 
   <!-- ReactDOM : React element를 HTML로 바꾸는 역할 -->
-  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
 
   <!-- JSX -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -17,73 +16,28 @@
   <script type="text/babel">
     const root = document.getElementById("root");
     function App() {
-      const [counter, setCounter] = React.useState(88);
-      const onClick = () => {
-        // setCounter(counter + 1);
-        setCounter((now) => now + 1);
+      const [minutes, setMinutes] = React.useState();
+      const onChange = (event) => {
+        setMinutes(event.target.value);
       };
       return (
         <div>
-          <h3>Total clicks : {counter}</h3>
-          <button onClick={onClick}>click me</button>
+          <h1 className="hi">Super Converter</h1>
+          <label htmlFor="minutes">Minutes</label>
+          <input
+            id="minutes"
+            value={minutes}
+            placeholder="Minutes"
+            type="number"
+            onChange={onChange}
+          />
+          <h4>convert value {minutes} ?</h4>
+          <label htmlFor="hours">Hours</label>
+          <input id="hours" placeholder="Hours" type="number" />
         </div>
       );
     }
-
-    function App2() {
-      const [counter2, setCounter2] = React.useState(0);
-      const onClick2 = () => {
-        setCounter2(counter2 + 1);
-      };
-      return (
-        <div>
-          <h2>test clicks : {counter2}</h2>
-          <button onClick={onClick2}>click again</button>
-        </div>
-      );
-    }
-
-    // function countUp() {
-    //   counter = counter + 1;
-    //   render();
-    // }
 
     ReactDOM.render(<App />, root);
-    ReactDOM.render(<App2 />, again);
-
-    // 일반 html 태그는 첫글자를 소문자로, JSX로 생성한 요소들은 첫글자를 대문자로 써줘야 한다.
-    // const Container = () => (
-    //   <div>
-    //     <h3>Total clicks : {counter}</h3>
-    //     <button onClick={countUp}>Click me</button>
-    //   </div>
-    // );
-
-    // const btn = React.createElement(
-    //   "button",
-    //   {
-    //     onClick: () => console.log("clicked!!"),
-    //   },
-    //   "click me!"
-    // );
-
-    // const agian = document.getElementById("agian");
-    // const btn2 = React.createElement(
-    //   "button",
-    //   {
-    //     onClick: () => console.log("again click!!"),
-    //   },
-    //   "BTN"
-    // );
-
-    // const title = React.createElement(
-    //   "h2",
-    //   {
-    //     onMouseEnter: () => console.log("onmouse!!"),
-    //   },
-    //   "Title"
-    // );
-
-    // ReactDOM.render([title, btn2], again);
   </script>
 </html>
