@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>prac</title>
+  </head>
+  <body>
+    <div id="mypractice"></div>
+  </body>
+
+  <!-- React -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+
+  <!-- ReactDOM : React element를 HTML로 바꾸는 역할 -->
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const mp = document.getElementById("mypractice");
+
+    function App() {
+      const [txtInput, setTxtInput] = React.useState();
+      const changeTxt = (event) => {
+        setTxtInput(event.target.value);
+      };
+      return (
+        <div>
+          <label htmlFor="txtInput">input here!!</label>
+          <input
+            id="txtInput"
+            type="text"
+            placeholder="write text"
+            onChange={changeTxt}
+          />
+          <h4>mytxt : {txtInput}</h4>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App />, mp);
+  </script>
+</html>
