@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>prac</title>
-  </head>
   <body>
-    <div id="mypractice"></div>
+    <div id="root"></div>
   </body>
 
   <!-- React -->
@@ -20,27 +14,52 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script type="text/babel">
-    const mp = document.getElementById("mypractice");
-
+    const root = document.getElementById("root");
     function App() {
-      const [txtInput, setTxtInput] = React.useState();
-      const changeTxt = (event) => {
-        setTxtInput(event.target.value);
+      const [amount, setAmount] = React.useState();
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (e) => {
+        setAmount(e.target.value);
+      };
+      const reset = () => {
+        setAmount(0);
+      };
+      const onFlip = () => {
+        reset();
+        setInverted((current) => !current);
       };
       return (
         <div>
-          <label htmlFor="txtInput">input here!!</label>
+          <h1 className="hi">Super Converter</h1>
+          <label htmlFor="amount">Minutes</label>
           <input
-            id="txtInput"
-            type="text"
-            placeholder="write text"
-            onChange={changeTxt}
+            id="amount"
+            value={inverted ? amount * 60 : amount}
+            placeholder="Minutes"
+            type="number"
+            onChange={onChange}
+            disabled={inverted === true}
           />
-          <h4>mytxt : {txtInput}</h4>
+          <h4>convert value &lt; {amount} &gt; to hour</h4>
+          <label htmlFor="hours">Hours</label>
+          <input
+            id="hours"
+            value={inverted ? amount : amount / 60}
+            placeholder="Hours"
+            type="number"
+            disabled={inverted === false}
+            onChange={onChange}
+          />
+          <div>
+            <button onClick={reset}>reset</button>
+            <button onClick={onFlip}>
+              {inverted ? "Turn back" : "Invert"}
+            </button>
+          </div>
         </div>
       );
     }
 
-    ReactDOM.render(<App />, mp);
+    ReactDOM.render(<App />, root);
   </script>
 </html>
