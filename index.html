@@ -14,76 +14,34 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script type="text/babel">
-    function MinutesToHours() {
-      const [amount, setAmount] = React.useState();
-      const [inverted, setInverted] = React.useState(false);
-      const onChange = (e) => {
-        setAmount(e.target.value);
-      };
-      const reset = () => {
-        setAmount(0);
-      };
-      const onFlip = () => {
-        reset();
-        setInverted((current) => !current);
-      };
+    /* props는 Object이며 Btn 컴포넌트의 첫번째 인자, 그 중 innerTxt 키의 값을 꺼내온다. */
+    /* 원래는 props 변수를 받아 props.innerTxt 방식으로 값을 깨내왔었다. */
+    function Btn({ innerTxt, isFat }) {
       return (
-        <div>
-          <label htmlFor="amount">Minutes</label>
-          <input
-            id="amount"
-            value={inverted ? amount * 60 : amount}
-            placeholder="Minutes"
-            type="number"
-            onChange={onChange}
-            disabled={inverted === true}
-          />
-          <h4>convert value &lt; {amount} &gt; to hour</h4>
-          <label htmlFor="hours">Hours</label>
-          <input
-            id="hours"
-            value={inverted ? amount : amount / 60}
-            placeholder="Hours"
-            type="number"
-            disabled={inverted === false}
-            onChange={onChange}
-          />
-          <div>
-            <button onClick={reset}>reset</button>
-            <button onClick={onFlip}>
-              {inverted ? "Turn back" : "Invert"}
-            </button>
-          </div>
-        </div>
-      );
-    }
-
-    function KmToMiles() {
-      return (
-        <div>
-          <h3>KM 2 M</h3>
-        </div>
+        <button
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: 0,
+            borderRadius: 10,
+            fontSize: isFat ? 18 : 12,
+          }}
+        >
+          {innerTxt}
+        </button>
       );
     }
 
     function App() {
-      const [index, setIndex] = React.useState("0");
-      const onSelect = (event) => {
-        setIndex(event.target.value);
-      };
       return (
         <div>
-          <h1 className="hi">Super Converter</h1>
-          <select name="" id="" value={index} onChange={onSelect}>
-            <option value="0">Minutes & Hours</option>
-            <option value="1">Km & Miles</option>
-          </select>
-          <hr />
-          {index === "0" ? <MinutesToHours /> : null}
-          {index === "1" ? <KmToMiles /> : null}
+          <Btn innerTxt="Save Changes" isFat={true} />
+          <Btn innerTxt="Continue" isFat={false} />
         </div>
       );
     }
+
     const root = document.getElementById("root");
     ReactDOM.render(<App />, root);
   </script>

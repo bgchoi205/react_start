@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>New Practice</title>
+  </head>
+  <body>
+    <div id="section"></div>
+  </body>
+
+  <!-- React -->
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+
+  <!-- ReactDOM : React element를 HTML로 바꾸는 역할 -->
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const section = document.getElementById("section");
+    function Plus() {
+      const [result, setResult] = React.useState(0);
+      const changeResult = (a, b) => {
+        setResult(a + b);
+      };
+
+      const [num1, setNum1] = React.useState(0);
+      const changeNum1 = (e) => {
+        setNum1(e.target.value);
+        changeResult(num1, num2);
+      };
+      const [num2, setNum2] = React.useState(0);
+      const changeNum2 = (e) => {
+        setNum2(e.target.value);
+        changeResult(num1, num2);
+      };
+
+      return (
+        <div>
+          <input type="number" id="num1" onChange={changeNum1} />
+          <span>+</span>
+          <input type="number" id="num2" onChange={changeNum2} />
+          <span>=</span>
+          <input type="number" id="result" value={result} />
+        </div>
+      );
+    }
+    function Calculator() {
+      const [divCd, setDivCd] = React.useState("0");
+      const onClick = (e) => {
+        setDivCd(e.target.value);
+      };
+      const calculate = () => {};
+      return (
+        <div>
+          <div>
+            <button id="plusBtn" value="0" onClick={onClick}>
+              plus
+            </button>
+            <button id="minusBtn" value="1" onClick={onClick}>
+              minus
+            </button>
+            <button id="multiplyBtn" value="2" onClick={onClick}>
+              multiply
+            </button>
+            <button id="divisionBtn" value="3" onClick={onClick}>
+              division
+            </button>
+          </div>
+          <div>{divCd === "0" ? <Plus /> : null}</div>
+        </div>
+      );
+    }
+
+    function App2() {
+      return (
+        <div>
+          <h2>New Practice</h2>
+          <hr />
+          <Calculator />
+        </div>
+      );
+    }
+
+    ReactDOM.render(<App2 />, section);
+  </script>
+</html>
