@@ -16,16 +16,18 @@
   <script type="text/babel">
     /* props는 Object이며 Btn 컴포넌트의 첫번째 인자, 그 중 innerTxt 키의 값을 꺼내온다. */
     /* 원래는 props 변수를 받아 props.innerTxt 방식으로 값을 깨내왔었다. */
-    function Btn({ innerTxt, isFat }) {
+    function Btn({ innerTxt, changeValue }) {
+      console.log(innerTxt, "was rendered");
       return (
         <button
+          onClick={changeValue}
           style={{
             backgroundColor: "tomato",
             color: "white",
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
-            fontSize: isFat ? 18 : 12,
+            fontSize: 12,
           }}
         >
           {innerTxt}
@@ -33,11 +35,19 @@
       );
     }
 
+    // useState를 사용하면 아래 Btn 하나만 changeValue가 실행되어 prop가 변경될 때 기존의 다른 Btn들까지 리렌더링된다.
+    // 아래 memo를 사용하면 prop가 변경되는 컴포넌트만 리렌더링 되며 불필요한 자원 소모를 줄인다.
+    const MemorizedBtn = React.memo(Btn);
+
+    // 아래 Btn에 innerText나 changeValue는 속성이나 이벤트 리스너가 아니다.
+    // 값을 전달해 줄 뿐, 받은 값으로 Btn 컴포넌트에서 설정해줘야 한다.
     function App() {
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <Btn innerTxt="Save Changes" isFat={true} />
-          <Btn innerTxt="Continue" isFat={false} />
+          <MemorizedBtn innerTxt={value} changeValue={changeValue} />
+          <MemorizedBtn innerTxt="Continue" />
         </div>
       );
     }
