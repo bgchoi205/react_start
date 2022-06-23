@@ -13,10 +13,14 @@
   <!-- JSX -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
+  <!-- propTypes -->
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+
   <script type="text/babel">
     /* props는 Object이며 Btn 컴포넌트의 첫번째 인자, 그 중 innerTxt 키의 값을 꺼내온다. */
     /* 원래는 props 변수를 받아 props.innerTxt 방식으로 값을 깨내왔었다. */
-    function Btn({ innerTxt, changeValue }) {
+    /* 아래처럼 매개변수 = 값 형식으로 기본값을 정해둘 수 있다 이건 React가 아닌 JacaScript로 가능한 것 */
+    function Btn({ innerTxt, changeValue, innerFontSize = 18 }) {
       console.log(innerTxt, "was rendered");
       return (
         <button
@@ -27,7 +31,7 @@
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
-            fontSize: 12,
+            fontSize: innerFontSize,
           }}
         >
           {innerTxt}
@@ -39,6 +43,15 @@
     // 아래 memo를 사용하면 prop가 변경되는 컴포넌트만 리렌더링 되며 불필요한 자원 소모를 줄인다.
     const MemorizedBtn = React.memo(Btn);
 
+    // prop의 타입을 정해둔다. 원치않는 타입이 들어가는 것을 방지할 때 사용
+    // 코드가 아예 나오지 않는 것은 아니지만 console창에 error가 뜨는 것을 볼 수 있다.
+    // 뒤에 isRequired를 붙이면 값이 필수라는 뜻, 그러나 useState에 기본값을 정하고 변수를 넣어주어도 console에는 error가 뜬다.
+    Btn.propTypes = {
+      //innerText: PropTypes.string.isRequired,
+      innerText: PropTypes.string,
+      innerFontSize: PropTypes.number,
+    };
+
     // 아래 Btn에 innerText나 changeValue는 속성이나 이벤트 리스너가 아니다.
     // 값을 전달해 줄 뿐, 받은 값으로 Btn 컴포넌트에서 설정해줘야 한다.
     function App() {
@@ -47,7 +60,7 @@
       return (
         <div>
           <MemorizedBtn innerTxt={value} changeValue={changeValue} />
-          <MemorizedBtn innerTxt="Continue" />
+          <MemorizedBtn innerTxt="Continue" innerFontSize={24} />
         </div>
       );
     }
